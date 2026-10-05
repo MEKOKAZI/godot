@@ -40,7 +40,13 @@ public:
 	struct SelectResult {
 		Node *item = nullptr;
 		real_t order = 0;
-		_FORCE_INLINE_ bool operator<(const SelectResult &p_rr) const { return p_rr.order < order; }
+		_FORCE_INLINE_ bool operator<(const SelectResult &p_rr) const {
+			if (order == p_rr.order && item && p_rr.item) {
+				// Tie-breaker: Nodes lower in the Scene Tree are drawn on top.
+				return item->is_greater_than(p_rr.item);
+			}
+			return p_rr.order < order;
+		}
 	};
 
 	static bool is_shortcut_pressed(const int p_idx, const HashMap<int, Ref<Shortcut>> &p_shortcuts, bool p_true_if_empty = false);
