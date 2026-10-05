@@ -1285,7 +1285,12 @@ void ProjectManager::shortcut_input(const Ref<InputEvent> &p_ev) {
 
 		switch (k->get_keycode()) {
 			case Key::ENTER: {
-				_open_selected_projects_check_recovery_mode();
+				for (ProjectList::Item item : project_list->get_selected_projects()) {
+					if (item.control->has_focus()) {
+						_open_selected_projects_check_recovery_mode();
+						break;
+					}
+				}
 			} break;
 			case Key::HOME: {
 				if (project_list->get_project_count() > 0) {
