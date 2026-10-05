@@ -1372,7 +1372,8 @@ void RuntimeNodeSelect::_open_selection_list(const Array &p_selection, const Poi
 	Window *root = SceneTree::get_singleton()->get_root();
 	root->add_child(selection_list);
 
-	for (const Variant &var : p_selection) {
+	for (int i = p_selection.size() - 1; i >= 0; i--) {
+		const Variant &var = p_selection[i];
 		Node *node = Object::cast_to<Node>(var);
 		int locked = 0;
 
