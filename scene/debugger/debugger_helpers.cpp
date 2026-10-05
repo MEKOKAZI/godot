@@ -30,9 +30,10 @@
 
 #ifdef DEBUG_ENABLED
 #include "debugger_helpers.h"
-#include "scene/main/node.h"
+
 #include "core/input/input.h"
 #include "core/input/shortcut.h"
+#include "scene/main/node.h"
 
 bool DebuggerHelpers::is_shortcut_pressed(const int p_idx, const HashMap<int, Ref<Shortcut>> &p_shortcuts, bool p_true_if_empty) {
 	ERR_FAIL_COND_V(!p_shortcuts.has(p_idx), p_true_if_empty);
