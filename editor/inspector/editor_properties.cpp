@@ -817,11 +817,21 @@ bool EditorPropertyPath::_can_drop_data_fw(const Point2 &p_point, const Variant 
 	if (!drag_data.has("type")) {
 		return false;
 	}
-	const Vector<String> filesPaths = drag_data["files"];
+	const String type = drag_data["type"];
 	if (folder) {
-		if (String(drag_data["type"]) != "files_and_dirs") {
+		if (type != "files_and_dirs") {
 			return false;
 		}
+	} else {
+		if (type != "files") {
+			return false;
+		}
+	}
+	if (!drag_data.has("files")) {
+		return false;
+	}
+	const Vector<String> filesPaths = drag_data["files"];
+	if (folder) {
 		if (filesPaths.size() > 1) {
 			for (const String &p : filesPaths) {
 				if (!p.ends_with("/")) {
@@ -831,9 +841,6 @@ bool EditorPropertyPath::_can_drop_data_fw(const Point2 &p_point, const Variant 
 		}
 		return true;
 	} else {
-		if (String(drag_data["type"]) != "files") {
-			return false;
-		}
 		if (filesPaths.is_empty()) {
 			return false;
 		}
