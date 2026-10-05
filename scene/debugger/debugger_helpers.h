@@ -39,7 +39,7 @@ class DebuggerHelpers {
 public:
 	struct SelectResult {
 		Node *item = nullptr;
-		real_t order = 0;
+		int order = 0;
 		bool operator<(const SelectResult &p_rr) const;
 	};
 
