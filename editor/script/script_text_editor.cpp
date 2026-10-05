@@ -414,6 +414,7 @@ void ScriptTextEditor::_error_clicked(const Variant &p_line) {
 
 void ScriptTextEditor::_on_mouse_exited() {
 	drag_info_label->hide();
+	hover_tooltip_timer->stop();
 }
 
 void ScriptTextEditor::add_callback(const String &p_function, const PackedStringArray &p_args) {
