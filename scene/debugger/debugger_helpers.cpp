@@ -33,6 +33,7 @@
 
 #include "core/input/input.h"
 #include "core/input/shortcut.h"
+#include "scene/main/node.h"
 
 bool DebuggerHelpers::is_shortcut_pressed(const int p_idx, const HashMap<int, Ref<Shortcut>> &p_shortcuts, bool p_true_if_empty) {
 	ERR_FAIL_COND_V(!p_shortcuts.has(p_idx), p_true_if_empty);
@@ -48,6 +49,22 @@ bool DebuggerHelpers::is_shortcut_pressed(const int p_idx, const HashMap<int, Re
 	}
 
 	return false;
+}
+
+bool DebuggerHelpers::SelectResult::operator<(const SelectResult &p_rr) const {
+	if (order == p_rr.order ) {
+
+ 		if (item && p_rr.item) {
+			return item->is_greater_than(p_rr.item);
+		}
+
+ 		if (item || p_rr.item) {
+			return item != nullptr;
+		}
+
+ 		return false;
+	}
+	return p_rr.order < order;
 }
 
 bool DebuggerHelpers::is_shortcut_empty(const int p_idx, const HashMap<int, Ref<Shortcut>> &p_shortcuts) {
