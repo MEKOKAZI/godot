@@ -52,9 +52,17 @@ bool DebuggerHelpers::is_shortcut_pressed(const int p_idx, const HashMap<int, Re
 }
 
 bool DebuggerHelpers::SelectResult::operator<(const SelectResult &p_rr) const {
-	if (order == p_rr.order && item && p_rr.item) {
-		// Tie-breaker: Nodes lower in the Scene Tree are drawn on top.
-		return item->is_greater_than(p_rr.item);
+	if (order == p_rr.order ) {
+
+ 		if (item && p_rr.item) {
+			return item->is_greater_than(p_rr.item);
+		}
+
+ 		if (item || p_rr.item) {
+			return item != nullptr;
+		}
+
+ 		return false;
 	}
 	return p_rr.order < order;
 }
